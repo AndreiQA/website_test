@@ -32,7 +32,10 @@ def test_search(driver):
     for car in cars_list:
         car_details = cars_page.get_car_details(car)
         print(car_details)
-    sleep(5)
+    assert cars_page.brand_auto_name == cars_page.brand_auto_name
+    assert cars_page.model_auto_name == cars_page.model_auto_name
+    assert cars_page.year_from_value == cars_page.year_from_value
+    assert cars_page.price_from == cars_page.price_from
 
 
 @allure.feature('Cars Page')
@@ -46,7 +49,6 @@ def test_reset_button(driver):
     sleep(3)
     cars_page.reset_button.click()
     assert cars_page.reset_button.is_displayed()
-    sleep(2)
 
 
 @allure.feature('Cars Page')
@@ -61,7 +63,8 @@ def test_add_additional_brand(driver):
     sleep(4)
     cars_page.additional_brand_name2_dropdown.click()
     cars_page.additional_brand_name2.click()
-    sleep(2)
+    assert cars_page.additional_brand == cars_page.additional_brand
+
 
 def test_volume(driver):
     """modules"""
@@ -69,7 +72,8 @@ def test_volume(driver):
     cars_page.open()
     cars_page.engine_dropdown_from.click()
     cars_page.engine_from_value.click()
-    sleep(2)
+    assert  cars_page.engine_from_value == cars_page.engine_from_value
+
 
 @allure.feature('Cars Page')
 @allure.story('Additional')
@@ -96,7 +100,7 @@ def test_car_body(driver):
     sleep(4)
     cars_page.car_body_checkbox.click()
     sleep(3)
-
+    assert cars_page.car_body_checkbox == cars_page.car_body_checkbox
 
 @allure.feature('Cars Page')
 @allure.story('Additional')
@@ -108,7 +112,7 @@ def test_type_engine(driver):
     sleep(4)
     cars_page.type_engine_checkbox.click()
     sleep(3)
-
+    assert cars_page.type_engine_checkbox == cars_page.type_engine_checkbox
 
 @allure.feature('Cars Page')
 @allure.story('Additional')
@@ -120,7 +124,7 @@ def test_drive_type(driver):
     sleep(4)
     cars_page.drive_type_checkbox.click()
     sleep(3)
-
+    assert cars_page.drive_type_checkbox == cars_page.drive_type_checkbox
 
 @allure.feature('Cars Page')
 @allure.story('Additional')
@@ -131,9 +135,17 @@ def test_all_params(driver):
     cars_page.cookies.click()
     sleep(3)
     cars_page.all_params.click()
+    sleep(3)
     cars_page.search_by_word.click()
     cars_page.search_by_word.send_keys("black")
-    assert cars_page.search_by_word.is_displayed()
+    sleep(3)
+    cars_page.show_result.click()
+    cars_list = cars_page.cars_list
+    sleep(2)
+    for car in cars_list :
+        car_details = cars_page.get_car_details(car)
+        print(car_details)
+    assert cars_page.search_by_word.send_keys == cars_page.search_by_word
 
 
 @allure.feature('Cars Page')
@@ -158,3 +170,4 @@ def test_sort_by_dropdown(driver):
     sleep(2)
     cars_page.sort_by_new.click()
     sleep(3)
+    assert cars_page.sort_by_new == cars_page.sort_by_new

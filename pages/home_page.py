@@ -21,9 +21,9 @@ email_wrong = (By.XPATH, '//div[text()="Неверный телефон или �
                          'Если забыли пароль, восстановите его" and @class="error-message"]')
 login_so_long = (By.XPATH, '//div[text()="Значение больше 100 знаков. '
                            'Возможно, это ошибка?" and @class="error-message"]')
-registration = (By.CLASS_NAME, 'drawer__slide-toggle')
-registration_form = (By.XPATH, '//span[text()="Зарегистрироваться" and @class="button__text"]')
-remember_password = (By.XPATH, '//span[text()="Не помню пароль" and @class="button__text"]')
+registration = (By.XPATH, '//span[text()="Регистрация" and @class="drawer__slide-toggle"]')
+registration_form = (By.XPATH, '//button[text()="Зарегистрироваться" and @class="button__text"]')
+remember_password = (By.CLASS_NAME, "auth__forgot")
 request_new_password = (By.XPATH, '//div[text()="Запрос на восстановление пароля" '
                                   'and @class="auth__title"]')
 login_submit = (By.XPATH, '//span[text()="Войти" and @class="button__text"]')
@@ -38,6 +38,7 @@ footer_text = (By.XPATH, "//p[text()='© 2001, ООО «Автоклассифа
 bookmark_add = (By.CSS_SELECTOR, 'button[class="bookmark"]')
 bookmark_del = (By.CSS_SELECTOR, 'button[title="Удалить из закладок"]')
 advert_add = (By.XPATH, '//span[text()="Подать объявление" and @class="button__text"]')
+advert_field = (By.CLASS_NAME, "heading-title")
 mobile_app_android = (By.XPATH, '//span[text()="Android" and @class="app-badge__platform"]')
 mobile_app_iphone = (By.XPATH, '//span[text()="iPhone" and @class="app-badge__platform"]')
 mobile_app_huawei = (By.XPATH, '//span[text()="Huawei" and @class="app-badge__platform"]')
@@ -141,7 +142,7 @@ class HomePage(BasePage):
         return self.find_element(telephone_wrong)
 
     @property
-    def telephone_password(self):
+    def password_wrong(self):
         """modules"""
         return self.find_element(password_wrong)
 
@@ -199,6 +200,12 @@ class HomePage(BasePage):
     def advert_add(self):
         """modules"""
         return self.find_element(advert_add)
+
+    @property
+    def advert_field(self):
+        """modules"""
+        return self.find_element(advert_field)
+
 
     @property
     def mobile_app_android(self):

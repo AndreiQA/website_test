@@ -1,10 +1,10 @@
 """modules"""
 from time import sleep
 from selenium.webdriver import ActionChains
-import conftest
+import personal_data
 from pages.home_page import HomePage
 import allure
-from conftest import telephone, password, email, telephone_wrong, password_wrong
+from personal_data import telephone, password, email, telephone_wrong, password_wrong
 
 
 @allure.feature('Home Page')
@@ -37,14 +37,6 @@ def test_transport(driver):
     assert home_page.finance_tab.is_displayed()
 
 
-# def test_footer_text(driver):
-#     home_page = HomePage(driver)
-#     home_page.open()
-#     home_page.footer_text.click()
-#     sleep(6)
-#     assert home_page.footer_text.is_displayed()
-
-
 @allure.feature('Home Page')
 @allure.story('Sign in')
 def test_sign_in_email(driver):
@@ -60,12 +52,11 @@ def test_sign_in_email(driver):
     home_page.password.click()
     sleep(2)
     home_page.password.send_keys(password)
-    sleep(2)
+    sleep(1)
     home_page.login_submit.click()
-    sleep(2)
+    sleep(1)
     ActionChains(driver).move_to_element(home_page.sign_out_dropdown).\
         click(home_page.sign_out_button).perform()
-    sleep(3)
 
 
 @allure.feature('Home Page')
@@ -79,13 +70,12 @@ def test_telephone_wrong(driver):
     home_page.telephone.send_keys(telephone_wrong)
     sleep(2)
     home_page.password.click()
-    sleep(2)
+    sleep(1)
     home_page.password.send_keys(password)
     sleep(2)
     home_page.login_submit.click()
-    sleep(2)
+    sleep(1)
     assert home_page.telephone_wrong.is_displayed()
-    sleep(2)
 
 
 @allure.feature('Home Page')
@@ -99,13 +89,12 @@ def test_password_wrong(driver):
     home_page.telephone.send_keys(telephone)
     sleep(2)
     home_page.password.click()
-    sleep(2)
+    sleep(1)
     home_page.password.send_keys(password_wrong)
     sleep(2)
     home_page.login_submit.click()
     sleep(2)
-    assert home_page.telephone_wrong.is_displayed()
-    sleep(2)
+    assert home_page.password_wrong.is_displayed()
 
 
 @allure.feature('Home Page')
@@ -118,16 +107,15 @@ def test_sign_in_email_wrong(driver):
     sleep(1)
     home_page.sign_in_email_tab.click()
     home_page.sign_in_email_field.click()
-    home_page.sign_in_email_field.send_keys(conftest.email_wrong)
+    home_page.sign_in_email_field.send_keys(personal_data.email_wrong)
     sleep(2)
     home_page.password.click()
     sleep(2)
     home_page.password.send_keys(password)
-    sleep(2)
+    sleep(1)
     home_page.login_submit.click()
-    sleep(4)
-    assert home_page.email_wrong.is_displayed()
     sleep(2)
+    assert home_page.email_wrong.is_displayed()
 
 
 @allure.feature('Home Page')
@@ -140,20 +128,20 @@ def test_login_so_long(driver):
     sleep(1)
     home_page.sign_in_email_tab.click()
     home_page.sign_in_email_field.click()
-    home_page.sign_in_email_field.send_keys(conftest.login_do_long)
+    home_page.sign_in_email_field.send_keys(personal_data.login_so_long)
     sleep(2)
     home_page.password.click()
     sleep(2)
     home_page.password.send_keys(password)
     sleep(2)
     home_page.login_submit.click()
-    sleep(4)
-    assert home_page.login_so_long.is_displayed()
     sleep(2)
+    assert home_page.login_so_long.is_displayed()
+
 
 @allure.feature('Home Page')
 @allure.story('Sign in')
-def test_sign_in(driver):
+def test_my_warnings(driver):
     """modules"""
     home_page = HomePage(driver)
     home_page.open()
@@ -174,18 +162,17 @@ def test_sign_in(driver):
     home_page.transport_tab.click()
 
 
-
 @allure.feature('Home Page')
 @allure.story('Additional')
 def test_bookmark_add_del(driver):
     """modules"""
     cars_page = HomePage(driver)
     cars_page.open()
-    if cars_page.bookmark_add.click():
-        sleep(2)
-    else:
-        cars_page.bookmark_del.click()
-        sleep(2)
+    cars_page.bookmark_add.click()
+    assert cars_page.bookmark_add.is_displayed()
+    sleep(2)
+    cars_page.bookmark_del.click()
+    assert cars_page.bookmark_del.is_displayed()
 
 
 @allure.feature('Home Page')
@@ -196,6 +183,8 @@ def test_advert_add(driver):
     cars_page.open()
     cars_page.advert_add.click()
     sleep(2)
+    cars_page.advert_field.click()
+    assert cars_page.advert_field.is_displayed()
 
 
 @allure.feature('Home Page')
@@ -216,13 +205,14 @@ def test_registration(driver):
     home_page = HomePage(driver)
     home_page.open()
     home_page.cookies
+    ActionChains(driver).move_to_element(home_page.sign_out_dropdown). \
+        click(home_page.sign_out_button).perform()
     home_page.sign_in.click()
-    sleep(1)
+    sleep(3)
     home_page.registration.click()
     sleep(4)
     home_page.registration_form.click()
     assert home_page.registration_form.is_displayed()
-    sleep(2)
 
 
 @allure.feature('Home Page')
@@ -232,9 +222,8 @@ def test_remember_password(driver):
     home_page = HomePage(driver)
     home_page.open()
     home_page.sign_in.click()
-    sleep(1)
+    sleep(3)
     home_page.remember_password.click()
     sleep(4)
     home_page.request_new_password.click()
     assert home_page.request_new_password.is_displayed()
-    sleep(4)
